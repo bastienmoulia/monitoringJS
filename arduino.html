@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>MonitoringJS</title>
+    </head>
+ 
+    <body>
+        <h1>Communication avec socket.io !</h1>
+        <p><input type="button" value="Embêter le serveur" id="poke" /></p>
+         <form action="/adress" method="post">
+            <label for="adress">Adress:</label>
+            <input type="text" id="adress" name="adress" placeholder="IP adress or host" value="{{ adress }}" />
+            <input type="submit" value="Change adress" />
+        </form>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:8080');
+            socket.on('message', function(message) {
+                console.log('Le serveur a un message pour vous : ' + message);
+            });
+            $('#poke').click(function () {
+                socket.emit('message', 'Salut serveur, ça va ?');
+            });
+        </script>
+    </body>
+</html>
